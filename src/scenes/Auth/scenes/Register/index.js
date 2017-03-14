@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+// Actions
+import * as AuthActions from 'actions/Auth'
+
+// Styles
 import './index.scss'
 
 class RegisterScene extends Component {
@@ -14,4 +20,17 @@ class RegisterScene extends Component {
 
 }
 
-export default RegisterScene
+function mapStateToProps(state) {
+  const { auth } = state;
+  return {
+    user: auth.user
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(AuthActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScene);
